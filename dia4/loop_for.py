@@ -13,7 +13,15 @@ for nombre in nombres:
         print(f"{nombre} no empieza por J")
 
 
-nombre = "Miracle"
-
-for letra in nombre:
+for letra in "Miracle":
     print(letra)
+
+for a, b in [[1, 2], [3, 4], {5, 6}]:
+    print(a)
+    print(b)
+
+
+mi_diccionario = {"a": 1, "b": 2, "c": 3}
+
+for clave, valor in mi_diccionario.items():
+    print(clave, valor)
