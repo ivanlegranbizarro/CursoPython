@@ -14,6 +14,18 @@ letras_de_la_palabra = [letra for letra in palabra]
 
 deletrear_mi_nombre = [letra for letra in "Iván"]
 
-print(letras_de_la_palabra)
 
-print(deletrear_mi_nombre)
+lista_de_numeros_pares = [num for num in range(0, 100, 2)]
+
+pies = [10, 20, 30, 50]
+metros = []
+
+convertir_pies_a_metros = [round((pie / 3.281), 2) for pie in pies]
+
+# print(letras_de_la_palabra)
+
+# print(deletrear_mi_nombre)
+
+# print(lista_de_numeros_pares)
+
+print(convertir_pies_a_metros)
