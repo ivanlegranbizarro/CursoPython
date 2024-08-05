@@ -12,7 +12,7 @@ nombre = input("¿Cuál es tu nombre? ")
 print(f"Hola {nombre}!")
 
 while intentos > 0:
-    print(f"Intentos restantes: {intentos}"
+    print(f"Intentos restantes: {intentos}")
     intento = int(input("Adivina el número entre 1 y 100: "))
 
     match intento:
