@@ -1,6 +1,3 @@
-
-#
-
 frase_rara = ",:_#,,,,,,:::____##Pyt%on_ _Total,,,,,,::#"
 
 print(frase_rara.lstrip(",:_#"))

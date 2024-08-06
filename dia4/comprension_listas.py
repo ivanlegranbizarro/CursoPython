@@ -29,3 +29,5 @@ convertir_pies_a_metros = [round((pie / 3.281), 2) for pie in pies]
 # print(lista_de_numeros_pares)
 
 print(convertir_pies_a_metros)
+
+lista_numeros = [2, 3, 10, 12, 41]
