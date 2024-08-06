@@ -19,4 +19,4 @@ def cafe_mas_caro(lista_precios):
 
 cafe, precio = cafe_mas_caro(precios_cafe)
 
-print(f"El cafe más caro es {cafe} y cuesta {precio}€")
+print(f"El café más caro es {cafe} y cuesta {precio}€")
