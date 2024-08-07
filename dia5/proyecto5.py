@@ -46,7 +46,7 @@ def comprobar_letra_usuario_es_correcta(
     letra_elegida, palabra_oculta, vidas, coincidencias
 ):
     fin = False
-    if letra_elegida in palabra_oculta:
+    if letra_elegida in palabra_oculta and letra_elegida not in letras_correctas:
         letras_correctas.append(letra_elegida)
         coincidencias += 1
     else:
