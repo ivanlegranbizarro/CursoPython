@@ -39,3 +39,12 @@ def suma_total(num1, num2, *args, **kwargs):
 
 
 print(suma_total(1, 2, 3, x=1, y=2, z=3))
+
+
+def describir_persona(nombre, **kwargs):
+    texto = ""
+
+    for clave, valor in kwargs.items():
+        texto += f"{clave} : {valor}\n"
+
+    return f"Características de {nombre.capitalize()}:\n{texto}"
