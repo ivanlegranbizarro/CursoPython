@@ -38,4 +38,13 @@ def elegir_categoria(ruta):
             print("Por favor, introduce un número")
 
 
-elegir_categoria(ruta_categorias)
+def mostrar_listado_recetas_de_categoria_escogida(ruta_categoria_escogida):
+    print(f"Las recetas de {ruta_categoria_escogida.name} son:")
+    listado_recetas = list(ruta_categoria_escogida.iterdir())
+    for i, receta in enumerate(listado_recetas, start=1):
+        print(i, receta.name)
+
+
+ruta_cateogira_escogida = elegir_categoria(ruta_categorias)
+
+mostrar_listado_recetas_de_categoria_escogida(ruta_cateogira_escogida)
