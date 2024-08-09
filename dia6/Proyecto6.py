@@ -11,3 +11,31 @@ from os import system
 # Sería bueno que cada vez que el usuario sala del programa se limpie la pantalla
 
 # Funciones
+
+
+ruta_categorias = Path().home() / "Recetas"
+
+
+def mostrar_categorias(ruta):
+    print("Las categorías son:")
+    listado_categorias = list(ruta.iterdir())
+    for i, categoria in enumerate(listado_categorias, start=1):
+        print(i, categoria.name)
+    return listado_categorias
+
+
+def elegir_categoria(ruta):
+    listado_categorias = mostrar_categorias(ruta)
+
+    while True:
+        try:
+            seleccion = int(input("Elige una categoría: "))
+            if seleccion < 1 or seleccion > len(listado_categorias):
+                print("La categoría no existe")
+            else:
+                return listado_categorias[seleccion - 1]
+        except ValueError:
+            print("Por favor, introduce un número")
+
+
+elegir_categoria(ruta_categorias)
