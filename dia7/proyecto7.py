@@ -20,7 +20,7 @@ class Cliente(Persona):
     def retirar(self, cantidad):
         if self.salario < cantidad:
             print("No tiene suficiente dinero para retirar esa cantidad")
-            return self.retirar()
+            return self.retirar(self.salario)
         self.salario -= cantidad
         return print(f"{self.nombre} ha retirado {cantidad} en su cuenta")
 
