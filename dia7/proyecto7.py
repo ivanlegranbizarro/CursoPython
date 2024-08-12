@@ -63,3 +63,5 @@ while True:
             print(cliente1)
         case 4:
             exit()
+        case _:
+            print("Por favor, introduce un número del 1 al 4")
