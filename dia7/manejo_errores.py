@@ -9,3 +9,14 @@ def suma():
 
 
 suma()
+
+
+def pedir_numero():
+    while True:
+        try:
+            return int(input("Introduce un número entero: "))
+        except ValueError:
+            print("Por favor, introduce un número entero")
+
+
+pedir_numero()
