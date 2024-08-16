@@ -1,9 +1,6 @@
 import math
 import random
-
 import pygame
-
-# Fórmula para las colisiones= Distancia = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
 # Iniciar Pygame
 pygame.init()
@@ -19,11 +16,19 @@ y_jugador = 500
 x_cambio_jugador = 0
 
 # Variables del enemigo
-nave_enemigo = pygame.image.load("enemigo.png")
-x_enemigo = random.randint(0, 736)
-y_enemigo = random.randint(50, 200)
-x_cambio_enemigo = 0.3
-y_cambio_enemigo = 40
+nave_enemigo = []
+x_enemigo = []
+y_enemigo = []
+x_cambio_enemigo = []
+y_cambio_enemigo = []
+cantidad_enemigos = 8
+
+for _ in range(cantidad_enemigos):
+    nave_enemigo.append(pygame.image.load("enemigo.png"))
+    x_enemigo.append(random.randint(0, 736))
+    y_enemigo.append(random.randint(50, 200))
+    x_cambio_enemigo.append(0.3)
+    y_cambio_enemigo.append(40)
 
 # Variables de la bala
 bala = pygame.image.load("bala.png")
@@ -36,16 +41,13 @@ bala_visible = False
 # Puntuación
 puntuacion = 0
 
-
 # Función para invocar la aparición del jugador
 def jugador(x, y):
     pantalla.blit(nave_jugador, (x, y))
 
-
 # Función para invocar la aparición del enemigo
-def enemigo(x, y):
-    pantalla.blit(nave_enemigo, (x, y))
-
+def enemigo(x, y, ene):
+    pantalla.blit(nave_enemigo[ene], (x, y))
 
 # Función para disparar la bala
 def disparar_bala(x, y):
@@ -53,14 +55,10 @@ def disparar_bala(x, y):
     bala_visible = True
     pantalla.blit(bala, (x + 16, y + 10))
 
-
 # Función para detectar las colisiones
 def hay_colision(x_1, y_1, x_2, y_2):
     distancia = math.sqrt(math.pow(x_2 - x_1, 2) + math.pow(y_2 - y_1, 2))
-    if distancia < 27:
-        return True
-    return False
-
+    return distancia < 27
 
 # Título e icono
 pygame.display.set_caption("Invasión Espacial")
@@ -109,15 +107,30 @@ while ejecutandose:
         x_jugador = 736
 
     # Modificar la ubicación del enemigo
-    x_enemigo += x_cambio_enemigo
+    for i in range(cantidad_enemigos):
+        x_enemigo[i] += x_cambio_enemigo[i]
 
-    # Mantener el enemigo dentro de la pantalla
-    if x_enemigo <= 0:
-        x_cambio_enemigo = 0.3
-        y_enemigo += y_cambio_enemigo
-    elif x_enemigo >= 736:
-        x_cambio_enemigo = -0.3
-        y_enemigo += y_cambio_enemigo
+        # Mantener el enemigo dentro de la pantalla
+        if x_enemigo[i] <= 0:
+            x_cambio_enemigo[i] = 0.3
+            y_enemigo[i] += y_cambio_enemigo[i]
+        elif x_enemigo[i] >= 736:
+            x_cambio_enemigo[i] = -0.3
+            y_enemigo[i] += y_cambio_enemigo[i]
+
+        # Colisión
+        colision = hay_colision(x_enemigo[i], y_enemigo[i], x_bala, y_bala)
+        if colision:
+            y_bala = 500
+            bala_visible = False
+            puntuacion += 1
+            print(puntuacion)
+            # Reiniciar la posición del enemigo después de la colisión
+            x_enemigo[i] = random.randint(0, 736)
+            y_enemigo[i] = random.randint(50, 200)
+
+        # Invocar la aparición del enemigo
+        enemigo(x_enemigo[i], y_enemigo[i], i)
 
     # Movimiento bala
     if bala_visible:
@@ -129,20 +142,8 @@ while ejecutandose:
         y_bala = 500
         bala_visible = False
 
-    # Colisión
-    colision = hay_colision(x_enemigo, y_enemigo, x_bala, y_bala)
-    if colision:
-        y_bala = 500
-        bala_visible = False
-        puntuacion += 1
-        print(puntuacion)
-        # Reiniciar la posición del enemigo después de la colisión
-        x_enemigo = random.randint(0, 736)
-        y_enemigo = random.randint(50, 200)
-
-    # Invocamos la aparición de la nave del jugador y la de las naves enemigas
+    # Invocamos la aparición de la nave del jugador
     jugador(x_jugador, y_jugador)
-    enemigo(x_enemigo, y_enemigo)
 
     # Actualizar la pantalla
     pygame.display.update()
