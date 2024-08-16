@@ -1,5 +1,9 @@
-import pygame
+import math
 import random
+
+import pygame
+
+# Fórmula para las colisiones= Distancia = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
 # Iniciar Pygame
 pygame.init()
@@ -29,19 +33,34 @@ x_cambio_bala = 0
 y_cambio_bala = 1
 bala_visible = False
 
+# Puntuación
+puntuacion = 0
+
+
 # Función para invocar la aparición del jugador
 def jugador(x, y):
     pantalla.blit(nave_jugador, (x, y))
 
+
 # Función para invocar la aparición del enemigo
 def enemigo(x, y):
     pantalla.blit(nave_enemigo, (x, y))
+
 
 # Función para disparar la bala
 def disparar_bala(x, y):
     global bala_visible
     bala_visible = True
     pantalla.blit(bala, (x + 16, y + 10))
+
+
+# Función para detectar las colisiones
+def hay_colision(x_1, y_1, x_2, y_2):
+    distancia = math.sqrt(math.pow(x_2 - x_1, 2) + math.pow(y_2 - y_1, 2))
+    if distancia < 27:
+        return True
+    return False
+
 
 # Título e icono
 pygame.display.set_caption("Invasión Espacial")
@@ -109,6 +128,17 @@ while ejecutandose:
     if y_bala <= 0:
         y_bala = 500
         bala_visible = False
+
+    # Colisión
+    colision = hay_colision(x_enemigo, y_enemigo, x_bala, y_bala)
+    if colision:
+        y_bala = 500
+        bala_visible = False
+        puntuacion += 1
+        print(puntuacion)
+        # Reiniciar la posición del enemigo después de la colisión
+        x_enemigo = random.randint(0, 736)
+        y_enemigo = random.randint(50, 200)
 
     # Invocamos la aparición de la nave del jugador y la de las naves enemigas
     jugador(x_jugador, y_jugador)
