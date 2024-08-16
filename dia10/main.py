@@ -7,7 +7,7 @@ pygame.init()
 pantalla = pygame.display.set_mode((800, 600))
 ejecutandose = True
 
-# Jugador
+# Variables del jugador
 nave_jugador = pygame.image.load("spaceship.png")
 x_jugador = 368
 y_jugador = 536
@@ -15,6 +15,7 @@ x_cambio_jugador = 0
 y_cambio_jugador = 0
 
 
+# Función para invocar la aparición del jugador
 def jugador(x, y):
     pantalla.blit(nave_jugador, (x, y))
 
@@ -30,20 +31,34 @@ while ejecutandose:
     # Color RGB de la pantalla del juego
     pantalla.fill((205, 144, 228))
 
+    # Iterar por todos los eventos
     for evento in pygame.event.get():
+        # Si el evento es cerrar la ventana el juego termina
         if evento.type == pygame.QUIT:
             ejecutandose = False
 
+        # Movimiento del jugador si se presiona una tecla
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_LEFT:
-                x_cambio_jugador -= 0.1
+                x_cambio_jugador -= 0.3
             if evento.key == pygame.K_RIGHT:
-                x_cambio_jugador += 0.1
+                x_cambio_jugador += 0.3
+        # Movimiento del jugador si se deja de presionar una tecla
         if evento.type == pygame.KEYUP:
             if evento.key == pygame.K_LEFT or evento.key == pygame.K_RIGHT:
                 x_cambio_jugador = 0
 
-    # Invocamos la aparición de la nave del jugador
+    # Modificar la ubicación del jugador
     x_jugador += x_cambio_jugador
+
+    # Mantener el jugador dentro de la pantalla
+    if x_jugador <= 0:
+        x_jugador = 0
+    elif x_jugador >= 736:
+        x_jugador = 736
+
+    # Invocamos la aparición de la nave del jugador
     jugador(x_jugador, y_jugador)
+
+    # Actualizar la pantalla
     pygame.display.update()
