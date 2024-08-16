@@ -11,7 +11,7 @@ ejecutandose = True
 # Variables del jugador
 nave_jugador = pygame.image.load("spaceship.png")
 x_jugador = 368
-y_jugador = 536
+y_jugador = 500
 x_cambio_jugador = 0
 
 # Variables del enemigo
