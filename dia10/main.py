@@ -36,12 +36,13 @@ def enemigo(x, y):
 pygame.display.set_caption("Invasión Espacial")
 icono_ovni = pygame.image.load("ovni.png")
 pygame.display.set_icon(icono_ovni)
+fondo = pygame.image.load("Fondo.jpg")
 
 # Loop de ejecución del juego
 while ejecutandose:
 
-    # Color RGB de la pantalla del juego
-    pantalla.fill((205, 144, 228))
+    # Cargar la imagen de fondo
+    pantalla.blit(fondo, (0, 0))
 
     # Iterar por todos los eventos
     for evento in pygame.event.get():
