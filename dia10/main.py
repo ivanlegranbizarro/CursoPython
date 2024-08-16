@@ -46,9 +46,16 @@ fuente = pygame.font.Font("freesansbold.ttf", 32)
 coordenada_x_texto = 10
 coordenada_y_texto = 10
 
+# Texto de GameOver
+fuente_game_over = pygame.font.Font("freesansbold.ttf", 64)
+
+
+def texto_final():
+    texto_final = fuente_game_over.render("GAME OVER", True, (255, 255, 255))
+    pantalla.blit(texto_final, (200, 200))
+
+
 # Mostrar puntuación
-
-
 def mostrar_puntuacion(x, y):
     texto = fuente.render(f"Puntuación: {puntuacion}", True, (255, 255, 255))
     pantalla.blit(texto, (x, y))
@@ -132,6 +139,13 @@ while ejecutandose:
 
     # Modificar la ubicación del enemigo
     for i in range(cantidad_enemigos):
+        # Fin del juego (si un enemigo choca con nuestra nave)
+        if y_enemigo[i] > 500:
+            for k in range(cantidad_enemigos):
+                y_enemigo[k] = 1000
+            texto_final()
+            break
+
         x_enemigo[i] += x_cambio_enemigo[i]
 
         # Mantener el enemigo dentro de la pantalla
@@ -145,7 +159,7 @@ while ejecutandose:
         # Colisión
         colision = hay_colision(x_enemigo[i], y_enemigo[i], x_bala, y_bala)
         if colision:
-            sonido_colision = mixer.Sound('Golpe.mp3')
+            sonido_colision = mixer.Sound("Golpe.mp3")
             sonido_colision.play()
             y_bala = 500
             bala_visible = False
