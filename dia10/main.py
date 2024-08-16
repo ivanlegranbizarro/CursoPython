@@ -40,14 +40,27 @@ bala_visible = False
 
 # Puntuación
 puntuacion = 0
+fuente = pygame.font.Font("freesansbold.ttf", 32)
+coordenada_x_texto = 10
+coordenada_y_texto = 10
+
+# Mostrar puntuación
+
+
+def mostrar_puntuacion(x, y):
+    texto = fuente.render(f"Puntuación: {puntuacion}", True, (255, 255, 255))
+    pantalla.blit(texto, (x, y))
+
 
 # Función para invocar la aparición del jugador
 def jugador(x, y):
     pantalla.blit(nave_jugador, (x, y))
 
+
 # Función para invocar la aparición del enemigo
 def enemigo(x, y, ene):
     pantalla.blit(nave_enemigo[ene], (x, y))
+
 
 # Función para disparar la bala
 def disparar_bala(x, y):
@@ -55,10 +68,12 @@ def disparar_bala(x, y):
     bala_visible = True
     pantalla.blit(bala, (x + 16, y + 10))
 
+
 # Función para detectar las colisiones
 def hay_colision(x_1, y_1, x_2, y_2):
     distancia = math.sqrt(math.pow(x_2 - x_1, 2) + math.pow(y_2 - y_1, 2))
     return distancia < 27
+
 
 # Título e icono
 pygame.display.set_caption("Invasión Espacial")
@@ -124,7 +139,6 @@ while ejecutandose:
             y_bala = 500
             bala_visible = False
             puntuacion += 1
-            print(puntuacion)
             # Reiniciar la posición del enemigo después de la colisión
             x_enemigo[i] = random.randint(0, 736)
             y_enemigo[i] = random.randint(50, 200)
@@ -144,6 +158,9 @@ while ejecutandose:
 
     # Invocamos la aparición de la nave del jugador
     jugador(x_jugador, y_jugador)
+
+    # Mostrar puntuación
+    mostrar_puntuacion(coordenada_x_texto, coordenada_y_texto)
 
     # Actualizar la pantalla
     pygame.display.update()
