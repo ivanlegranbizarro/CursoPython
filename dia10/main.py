@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # Iniciar Pygame
 pygame.init()
@@ -14,10 +15,22 @@ y_jugador = 536
 x_cambio_jugador = 0
 y_cambio_jugador = 0
 
+# Variables del enemigo
+nave_enemigo = pygame.image.load("enemigo.png")
+x_enemigo = random.randint(0, 736)
+y_enemigo = random.randint(50, 200)
+x_cambio_enemigo = 0
+y_cambio_enemigo = 0
+
 
 # Función para invocar la aparición del jugador
 def jugador(x, y):
     pantalla.blit(nave_jugador, (x, y))
+
+
+# Función para invocar la aparición del enemigo
+def enemigo(x, y):
+    pantalla.blit(nave_enemigo, (x, y))
 
 
 # Título e icono
@@ -57,8 +70,9 @@ while ejecutandose:
     elif x_jugador >= 736:
         x_jugador = 736
 
-    # Invocamos la aparición de la nave del jugador
+    # Invocamos la aparición de la nave del jugador y la de las naves enemigas
     jugador(x_jugador, y_jugador)
+    enemigo(x_enemigo, y_enemigo)
 
     # Actualizar la pantalla
     pygame.display.update()
