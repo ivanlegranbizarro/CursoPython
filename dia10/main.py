@@ -21,16 +21,27 @@ y_enemigo = random.randint(50, 200)
 x_cambio_enemigo = 0.3
 y_cambio_enemigo = 40
 
+# Variables de la bala
+bala = pygame.image.load("bala.png")
+x_bala = 0
+y_bala = 500
+x_cambio_bala = 0
+y_cambio_bala = 1
+bala_visible = False
 
 # Función para invocar la aparición del jugador
 def jugador(x, y):
     pantalla.blit(nave_jugador, (x, y))
 
-
 # Función para invocar la aparición del enemigo
 def enemigo(x, y):
     pantalla.blit(nave_enemigo, (x, y))
 
+# Función para disparar la bala
+def disparar_bala(x, y):
+    global bala_visible
+    bala_visible = True
+    pantalla.blit(bala, (x + 16, y + 10))
 
 # Título e icono
 pygame.display.set_caption("Invasión Espacial")
@@ -53,9 +64,17 @@ while ejecutandose:
         # Movimiento del jugador si se presiona una tecla
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_LEFT:
-                x_cambio_jugador -= 0.3
+                x_cambio_jugador = -0.3
             if evento.key == pygame.K_RIGHT:
-                x_cambio_jugador += 0.3
+                x_cambio_jugador = 0.3
+
+            # Disparar balas
+            if evento.key == pygame.K_SPACE:
+                if not bala_visible:
+                    x_bala = x_jugador
+                    y_bala = y_jugador
+                    disparar_bala(x_bala, y_bala)
+
         # Movimiento del jugador si se deja de presionar una tecla
         if evento.type == pygame.KEYUP:
             if evento.key == pygame.K_LEFT or evento.key == pygame.K_RIGHT:
@@ -80,6 +99,16 @@ while ejecutandose:
     elif x_enemigo >= 736:
         x_cambio_enemigo = -0.3
         y_enemigo += y_cambio_enemigo
+
+    # Movimiento bala
+    if bala_visible:
+        disparar_bala(x_bala, y_bala)
+        y_bala -= y_cambio_bala
+
+    # Verificar si la bala ha salido de la pantalla
+    if y_bala <= 0:
+        y_bala = 500
+        bala_visible = False
 
     # Invocamos la aparición de la nave del jugador y la de las naves enemigas
     jugador(x_jugador, y_jugador)
