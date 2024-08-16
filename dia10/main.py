@@ -1,6 +1,8 @@
 import math
 import random
+
 import pygame
+from pygame import mixer
 
 # Iniciar Pygame
 pygame.init()
@@ -81,6 +83,11 @@ icono_ovni = pygame.image.load("ovni.png")
 pygame.display.set_icon(icono_ovni)
 fondo = pygame.image.load("Fondo.jpg")
 
+# Añadir música
+mixer.music.load("MusicaFondo.mp3")
+mixer.music.set_volume(0.3)
+mixer.music.play(-1)
+
 # Loop de ejecución del juego
 while ejecutandose:
 
@@ -102,6 +109,8 @@ while ejecutandose:
 
             # Disparar balas
             if evento.key == pygame.K_SPACE:
+                sonido_disparo = mixer.Sound("disparo.mp3")
+                sonido_disparo.play()
                 if not bala_visible:
                     x_bala = x_jugador
                     y_bala = y_jugador
@@ -136,6 +145,8 @@ while ejecutandose:
         # Colisión
         colision = hay_colision(x_enemigo[i], y_enemigo[i], x_bala, y_bala)
         if colision:
+            sonido_colision = mixer.Sound('Golpe.mp3')
+            sonido_colision.play()
             y_bala = 500
             bala_visible = False
             puntuacion += 1
