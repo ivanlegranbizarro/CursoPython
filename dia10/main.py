@@ -13,14 +13,13 @@ nave_jugador = pygame.image.load("spaceship.png")
 x_jugador = 368
 y_jugador = 536
 x_cambio_jugador = 0
-y_cambio_jugador = 0
 
 # Variables del enemigo
 nave_enemigo = pygame.image.load("enemigo.png")
 x_enemigo = random.randint(0, 736)
 y_enemigo = random.randint(50, 200)
-x_cambio_enemigo = 0
-y_cambio_enemigo = 0
+x_cambio_enemigo = 0.3
+y_cambio_enemigo = 40
 
 
 # Función para invocar la aparición del jugador
@@ -69,6 +68,17 @@ while ejecutandose:
         x_jugador = 0
     elif x_jugador >= 736:
         x_jugador = 736
+
+    # Modificar la ubicación del enemigo
+    x_enemigo += x_cambio_enemigo
+
+    # Mantener el enemigo dentro de la pantalla
+    if x_enemigo <= 0:
+        x_cambio_enemigo = 0.3
+        y_enemigo += y_cambio_enemigo
+    elif x_enemigo >= 736:
+        x_cambio_enemigo = -0.3
+        y_enemigo += y_cambio_enemigo
 
     # Invocamos la aparición de la nave del jugador y la de las naves enemigas
     jugador(x_jugador, y_jugador)
