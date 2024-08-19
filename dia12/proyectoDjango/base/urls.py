@@ -1,9 +1,9 @@
 from django.urls import path
 
-from . import views
+from base import views
 
 app_name = "base"
 
 urlpatterns = [
-    path("", views.lista_pendientes, name="pendientes"),
+    path("", views.ListaTareasPendientes.as_view(), name="tareas-pendientes"),
 ]
