@@ -3,11 +3,15 @@
 <table>
   <tr>
     <th>Elementos</th>
+    <th></th>
   </tr>
 
   {% for tarea in tareas %}
     <tr>
       <td>{{ tarea.titulo }}</td>
+      <td>
+        <a href="{% url 'base:tarea-detalle' tarea.id %}">Ver</a>
+      </td>
     </tr>
   {% empty %}
     <tr>
