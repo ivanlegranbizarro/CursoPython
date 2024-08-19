@@ -21,3 +21,9 @@ class Tarea(models.Model):
     completado = models.BooleanField(default=False)
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.titulo
+
+    class Meta:
+        ordering = ["completado"]
