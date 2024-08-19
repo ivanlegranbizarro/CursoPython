@@ -43,7 +43,7 @@ panel_costos.pack(side=BOTTOM)
 # panel comidas
 panel_comidas = LabelFrame(
     panel_izquierdo,
-    text="Comida",
+    text="Comidas",
     font=("Dosis", 19, "bold"),
     bd=1,
     relief=FLAT,
@@ -89,6 +89,95 @@ panel_recibo.pack()
 # panel botones
 panel_botones = Frame(panel_derecha, bd=1, relief=FLAT, bg="burlywood")
 panel_botones.pack()
+
+# lista de productos
+lista_comidas = [
+    "pollo",
+    "cerdo",
+    "pavo",
+    "salmón",
+    "pechuga",
+    "kebab",
+    "pizza margarita",
+    "paella",
+]
+
+# lista de bebidas
+lista_bebidas = [
+    "agua",
+    "café",
+    "refresco",
+    "soda",
+    "té",
+    "cerveza",
+    "vino",
+    "cerveza tostada",
+]
+
+# lista de postres
+lista_postres = [
+    "helado",
+    "pastel",
+    "flan",
+    "brownie",
+    "fruta",
+    "yogur",
+    "tarta",
+    "mouse",
+]
+
+# checkbutton productos
+
+# generar ítems comida
+variables_comida = []
+contador = 0
+for comida in lista_comidas:
+    variables_comida.append(IntVar())
+
+    comida = Checkbutton(
+        panel_comidas,
+        text=comida.title(),
+        font=("Dosis", 19, "bold"),
+        onvalue=1,
+        offvalue=0,
+        variable=variables_comida[contador],
+    )
+    comida.grid(row=contador, column=0, sticky=W)
+    contador += 1
+
+# generar ítems bebida
+variables_bebida = []
+contador = 0
+for bebida in lista_bebidas:
+    variables_bebida.append(IntVar())
+
+    bebida = Checkbutton(
+        panel_bebidas,
+        text=bebida.title(),
+        font=("Dosis", 19, "bold"),
+        onvalue=1,
+        offvalue=0,
+        variable=variables_bebida[contador],
+    )
+    bebida.grid(row=contador, column=0, sticky=W)
+    contador += 1
+
+# generar ítems postre
+variables_postre = []
+contador = 0
+for postre in lista_postres:
+    variables_postre.append(IntVar())
+
+    postre = Checkbutton(
+        panel_postres,
+        text=postre.title(),
+        font=("Dosis", 19, "bold"),
+        onvalue=1,
+        offvalue=0,
+        variable=variables_postre[contador],
+    )
+    postre.grid(row=contador, column=0, sticky=W)
+    contador += 1
 
 # evitar que la pantalla se cierre
 aplicacion.mainloop()
