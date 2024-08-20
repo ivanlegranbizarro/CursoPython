@@ -1,9 +1,13 @@
-<h1>Eliminar la tarea "{{ tarea.titulo }}"</h1>
+{% extends 'principal.html' %}
 
-<a href="{% url 'base:tareas-pendientes' %}"><input type="button" value="Volver" /></a>
+{% block content %}
+  <h1>Eliminar la tarea "{{ tarea.titulo }}"</h1>
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Eliminar" />
-</form>
+  <a href="{% url 'base:tareas-pendientes' %}"><input type="button" value="Volver" /></a>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Eliminar" />
+  </form>
+{% endblock %}
