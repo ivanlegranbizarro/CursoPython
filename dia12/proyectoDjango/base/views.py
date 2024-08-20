@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -12,7 +13,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Signup(FormView):
     template_name = "base/registro.html"
     form_class = UserCreationForm
-    redirect_authenticated_user = True
     success_url = reverse_lazy("base:tareas-pendientes")
 
     def get_form(self, form_class=None):
@@ -25,6 +25,11 @@ class Signup(FormView):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect("base:tareas-pendientes")
+        return super().get(*args, **kwargs)
 
 
 class Logueo(LoginView):
