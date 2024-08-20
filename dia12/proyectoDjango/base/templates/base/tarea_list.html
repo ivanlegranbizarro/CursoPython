@@ -11,6 +11,11 @@
 <hr />
 <h1>Lista de pendientes</h1>
 
+<form method="GET">
+  <input type="text" name="q" value="{{ request.GET.q }}" />
+  <input type="submit" value="Buscar" />
+</form>
+
 <a href="{% url 'base:tarea-nueva' %}">Nueva Tarea</a>
 
 <table>

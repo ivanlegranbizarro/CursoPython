@@ -45,11 +45,14 @@ class ListaTareasPendientes(LoginRequiredMixin, ListView):
     model = Tarea
     context_object_name = "tareas"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tareas"] = context["tareas"].filter(usuario=self.request.user)
-        context["count"] = context["tareas"].filter(completado=False).count()
-        return context
+    def get_queryset(self):
+        queryset = (
+            super().get_queryset().filter(usuario=self.request.user, completado=False)
+        )
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(titulo__icontains=query)
+        return queryset
 
 
 class DetalleTarea(LoginRequiredMixin, DetailView):
