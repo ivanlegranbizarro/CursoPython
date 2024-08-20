@@ -1,12 +1,16 @@
-<h1>Regístrate</h1>
+{% extends 'principal.html' %}
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Registrarse" />
-</form>
+{% block content %}
+  <h1>Regístrate</h1>
 
-<p>
-  ¿Ya tienes una cuenta??
-  <a href="{% url 'base:login' %}">Login</a>
-</p>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Registrarse" />
+  </form>
+
+  <p>
+    ¿Ya tienes una cuenta??
+    <a href="{% url 'base:login' %}">Login</a>
+  </p>
+{% endblock %}

@@ -1,47 +1,47 @@
-{% if request.user.is_authenticated %}
-  <p>{{ request.user }}</p>
-  <form id="logout-form" action="{% url 'base:logout' %}" method="post" style="display: inline;">
-    {% csrf_token %}
-    <input type="submit" value="Logout" />
+{% extends 'principal.html' %}
+
+{% block content %}
+  {% if request.user.is_authenticated %}
+    <p>{{ request.user }}</p>
+    <form id="logout-form" action="{% url 'base:logout' %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <input type="submit" value="Logout" />
+    </form>
+  {% else %}
+    <a href="{% url 'base:login' %}"><input type="button" value="Login" /></a>
+  {% endif %}
+
+  <hr />
+  <h1>Lista de pendientes</h1>
+
+  <form method="GET">
+    <input type="text" name="q" value="{{ request.GET.q }}" />
+    <input type="submit" value="Buscar" />
   </form>
-{% else %}
-  <a href="{% url 'base:login' %}"><input type="button" value="Login" /></a>
-{% endif %}
 
-<hr />
-<h1>Lista de pendientes</h1>
+  <a href="{% url 'base:tarea-nueva' %}">Nueva Tarea</a>
 
-<form method="GET">
-  <input type="text" name="q" value="{{ request.GET.q }}" />
-  <input type="submit" value="Buscar" />
-</form>
-
-<a href="{% url 'base:tarea-nueva' %}">Nueva Tarea</a>
-
-<table>
-  <tr>
-    <th>Elementos</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-  {% for tarea in tareas %}
+  <table>
     <tr>
-      <td>{{ tarea.titulo }}</td>
-      <td>
-        <a href="{% url 'base:tarea-detalle' tarea.id %}">Ver</a>
-      </td>
-      <td>
-        <a href="{% url 'base:tarea-editar' tarea.id %}">Editar</a>
-      </td>
-      <td>
-        <a href="{% url 'base:tarea-eliminar' tarea.id %}">Eliminar</a>
-      </td>
+      <th>Elementos</th>
+      <th></th>
+      <th></th>
     </tr>
-  {% empty %}
-    <tr>
-      <td>No hay tareas pendientes</td>
-    </tr>
-  {% endfor %}
-</table>
+
+    {% for tarea in tareas %}
+      <tr>
+        <td>{{ tarea.titulo }}</td>
+        <td>
+          <a href="{% url 'base:tarea-editar' tarea.id %}">Editar</a>
+        </td>
+        <td>
+          <a href="{% url 'base:tarea-eliminar' tarea.id %}">Eliminar</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td>No hay tareas pendientes</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

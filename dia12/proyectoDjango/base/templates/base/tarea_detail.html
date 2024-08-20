@@ -1,11 +1,15 @@
-<h1>Detalle de la tarea {{ tarea.titulo }}</h1>
+{% extends 'principal.html' %}
 
-<table>
-  <tr>
-    <th>Tarea {{ tarea.id }}</th>
-  </tr>
+{% block content %}
+  <h1>Detalle de la tarea {{ tarea.titulo }}</h1>
 
-  <tr>
-    <td>{{ tarea.titulo }}</td>
-  </tr>
-</table>
+  <table>
+    <tr>
+      <th>Tarea {{ tarea.id }}</th>
+    </tr>
+
+    <tr>
+      <td>{{ tarea.titulo }}</td>
+    </tr>
+  </table>
+{% endblock %}
