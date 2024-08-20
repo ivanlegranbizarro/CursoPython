@@ -8,6 +8,7 @@ app_name = "base"
 urlpatterns = [
     path("", views.ListaTareasPendientes.as_view(), name="tareas-pendientes"),
     path("login/", views.Logueo.as_view(), name="login"),
+    path("registro", views.Signup.as_view(), name="signup"),
     path("logout/", LogoutView.as_view(next_page="base:login"), name="logout"),
     path("tarea/<int:pk>/", views.DetalleTarea.as_view(), name="tarea-detalle"),
     path(
