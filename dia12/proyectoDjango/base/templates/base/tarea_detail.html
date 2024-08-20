@@ -1,15 +1,11 @@
 <h1>Detalle de la tarea {{ tarea.titulo }}</h1>
 
-{% if request.user.is_authenticated == tarea.usuario %}
-  <table>
-    <tr>
-      <th>Tarea {{ tarea.id }}</th>
-    </tr>
+<table>
+  <tr>
+    <th>Tarea {{ tarea.id }}</th>
+  </tr>
 
-    <tr>
-      <td>{{ tarea.titulo }}</td>
-    </tr>
-  </table>
-{% else %}
-  <p>No tienes permiso para ver esta tarea</p>
-{% endif %}
+  <tr>
+    <td>{{ tarea.titulo }}</td>
+  </tr>
+</table>

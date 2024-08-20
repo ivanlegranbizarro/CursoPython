@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
@@ -59,6 +60,12 @@ class DetalleTarea(LoginRequiredMixin, DetailView):
     model = Tarea
     context_object_name = "tarea"
 
+    def get_object(self, queryset=None):
+        tarea = super().get_object(queryset)
+        if tarea.usuario != self.request.user:
+            raise PermissionDenied("No tienes permiso para ver esta tarea")
+        return tarea
+
 
 class CrearTarea(LoginRequiredMixin, CreateView):
     model = Tarea
@@ -75,7 +82,5 @@ class EditarTarea(LoginRequiredMixin, UpdateView):
     fields = ["titulo", "descripcion", "completado"]
     success_url = reverse_lazy("base:tareas-pendientes")
 
-
-class EliminarTarea(LoginRequiredMixin, DeleteView):
-    model = Tarea
-    success_url = reverse_lazy("base:tareas-pendientes")
+    def get_object(self, queryset=None):
+        tarea =
