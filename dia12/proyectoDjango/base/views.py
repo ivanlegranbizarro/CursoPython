@@ -83,4 +83,12 @@ class EditarTarea(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("base:tareas-pendientes")
 
     def get_object(self, queryset=None):
-        tarea =
+        tarea = super().get_object(queryset)
+        if tarea.usuario != self.request.user:
+            raise PermissionDenied("No tienes permiso para editar esta tarea")
+        return tarea
+
+
+class EliminarTarea(LoginRequiredMixin, DeleteView):
+    model = Tarea
+    success_url = reverse_lazy("base:tareas-pendientes")
